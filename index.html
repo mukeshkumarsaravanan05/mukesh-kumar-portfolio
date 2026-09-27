@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mukesh Kumar S — Biomedical Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#B399F5;
+    --primary-dark:#2A1554;
+    --lavender:#EDE7FF;
+    --bg:#000000;
+    --bg-2:#000000;
+    --card:rgba(255,255,255,.06);
+    --card-hover:rgba(255,255,255,.1);
+    --text:#920499;
+    --muted:#f9f2fa;
+    --line:rgba(255,255,255,.16);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  html, body{
+    background:#000000;
+  }
+  body{
+    font-family:var(--sans);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{outline:2px solid var(--primary); outline-offset:3px; border-radius:4px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- top label utility ---------- */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.04em;
+    color:#FFFFFF;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--primary); flex:none;}
+
+  h1,h2,h3{font-weight:800; letter-spacing:-0.02em; color:var(--text);}
+  .section-title{font-size:clamp(28px,3.4vw,40px); line-height:1.15; max-width:640px;}
+  .section-sub{color:var(--muted); font-size:16px; max-width:520px; margin-top:14px; line-height:1.6;}
+
+  section{padding:112px 0;}
+  @media(max-width:720px){ section{padding:76px 0;} .wrap{padding:0 20px;} }
+
+  .sect-head{display:flex; justify-content:space-between; align-items:flex-end; gap:32px; margin-bottom:56px;}
+  @media(max-width:720px){.sect-head{flex-direction:column; align-items:flex-start; gap:14px;}}
+
+  /* ================= NAV ================= */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(44,20,90,.25);
+    backdrop-filter:blur(14px) saturate(140%);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .brand{display:flex; align-items:center; gap:12px; font-weight:800; font-size:16.5px;}
+  .brand-mark{
+    width:38px; height:38px; border-radius:10px;
+    background:linear-gradient(155deg, var(--primary), var(--primary-dark));
+    position:relative; flex:none;
+  }
+  .brand-mark svg{position:absolute; inset:0; margin:auto;}
+  .nav-links{display:flex; align-items:center; gap:34px; font-size:14.5px; font-weight:500; color:var(--muted);}
+  .nav-links a{position:relative; padding:4px 0; transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; right:0; bottom:-3px; height:2px;
+    background:var(--primary); transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
+  }
+  .nav-links a:hover::after{transform:scaleX(1);}
+  .nav-cta{
+    background:var(--primary); color:#fff; padding:10px 20px; border-radius:100px;
+    font-size:14px; font-weight:600; border:none;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    box-shadow:0 1px 2px rgba(59,31,111,.15);
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(108,60,233,.55);}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
+  .burger span{width:22px; height:2px; background:var(--text); border-radius:2px;}
+  .mobile-panel{
+    display:none; position:fixed; inset:76px 0 0 0; background:var(--bg); z-index:99;
+    padding:28px 20px; flex-direction:column; gap:4px;
+    transform:translateY(-12px); opacity:0; pointer-events:none; transition:transform .3s ease, opacity .3s ease;
+  }
+  .mobile-panel.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+  .mobile-panel a{padding:16px 4px; font-size:18px; font-weight:600;}
+  .mobile-panel .nav-cta{margin-top:20px; text-align:center;}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .mobile-panel{display:flex;}
+  }
+
+  /* ================= HERO ================= */
+  .hero{padding:88px 0 60px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr; gap:56px;}}
+
+  .hero h1{font-size:clamp(38px,5.1vw,60px); line-height:1.06; margin-bottom:22px;}
+  .hero p.lede{color:var(--muted); font-size:17.5px; line-height:1.7; max-width:520px; margin-bottom:26px;}
+  .kw-row{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:36px;}
+  .kw{
+    font-size:13px; font-weight:600; color:var(--primary-dark);
+    background:var(--lavender); border:1px solid #E1D6FB;
+    padding:7px 14px; border-radius:100px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px; border-radius:12px; font-weight:600; font-size:15px;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background .25s, border-color .25s;
+  }
+  .btn-solid{background:var(--primary); color:#fff; border:1px solid var(--primary);}
+  .btn-solid:hover{transform:translateY(-3px); box-shadow:0 16px 30px -12px rgba(108,60,233,.55);}
+  .btn-outline{background:rgba(255,255,255,.08); color:var(--text); border:1px solid rgba(255,255,255,.35);}
+  .btn-outline:hover{border-color:var(--primary); color:var(--primary); background:rgba(255,255,255,.14); transform:translateY(-3px);}
+
+  /* hero visual */
+  .hero-visual{position:relative; min-height:460px;}
+  .hero-visual--nophoto{display:flex; flex-direction:column; justify-content:center; align-items:center; gap:18px;}
+  .hero-visual--nophoto .hv-card{position:static; margin:0; animation:none; display:inline-flex;}
+  @media(max-width:960px){ .hero-visual--nophoto{min-height:0;} }
+  .hv-card{
+    position:absolute; background:rgba(255,255,255,.92); backdrop-filter:blur(10px);
+    border:1px solid #EAE3FA; border-radius:14px; padding:12px 16px;
+    box-shadow:0 20px 40px -20px rgba(20,8,45,.5);
+    font-size:12.5px; font-weight:600; color:var(--primary-dark);
+    display:flex; align-items:center; gap:9px;
+    animation:float 6s ease-in-out infinite;
+  }
+  .hv-card .dot{width:7px; height:7px; border-radius:50%; background:var(--primary);}
+  .hv-card.c1{top:6%; left:-2%; animation-delay:0s;}
+  .hv-card.c2{bottom:16%; left:-4%; animation-delay:1.4s;}
+  .hv-card.c3{top:48%; right:-4%; animation-delay:2.6s;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-9px);}}
+  @media(max-width:960px){ .hv-card{position:static; margin-bottom:10px; animation:none; display:inline-flex;} }
+
+  .hero-photo-wrap{
+    border-radius:24px; overflow:hidden;
+    border:1px solid #E1D6FB;
+    background:radial-gradient(120% 120% at 30% 10%, #F9F7FF 0%, #EDE7FF 70%);
+  }
+  .hero-photo{width:100%; height:100%; object-fit:cover; display:block; aspect-ratio:3/4;}
+  .hero-photo-caption{
+    text-align:center; margin-top:16px; font-weight:700; font-size:15px; color:#FFFFFF;
+    letter-spacing:.01em;
+  }
+
+  /* ================= ABOUT ================= */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr; gap:40px;}}
+  .about-text p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:16px;}
+  .about-text strong{color:#fff; font-weight:800; letter-spacing:.02em;}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .stat-card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px;
+    transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  }
+  .stat-card:hover{transform:translateY(-4px); border-color:rgba(255,255,255,.35); background:var(--card-hover);}
+  .stat-num{font-size:28px; font-weight:800; color:#fff;}
+  .stat-label{font-size:13px; color:var(--muted); margin-top:6px; font-weight:500;}
+
+  /* ================= EXPERTISE ================= */
+  .expertise-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:900px){.expertise-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){.expertise-grid{grid-template-columns:1fr;}}
+  .exp-card{
+    background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s, background .3s;
+  }
+  .exp-card:hover{transform:translateY(-6px); box-shadow:0 22px 40px -22px rgba(10,4,25,.5); border-color:rgba(255,255,255,.3); background:var(--card-hover);}
+  .exp-icon{
+    width:46px; height:46px; border-radius:12px; background:var(--lavender);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .exp-card h3{font-size:17px; margin-bottom:12px;}
+  .exp-card ul li{font-size:14px; color:var(--muted); padding:4px 0; position:relative; padding-left:16px;}
+  .exp-card ul li::before{content:''; position:absolute; left:0; top:12px; width:5px; height:5px; border-radius:50%; background:var(--primary); opacity:.55;}
+
+  /* ================= SKILLS ================= */
+  .skills-wrap{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  @media(max-width:800px){.skills-wrap{grid-template-columns:1fr;}}
+  .skill-block{
+    background:var(--card); border:1px solid var(--line); border-radius:18px; padding:30px;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s, background .3s;
+  }
+  .skill-block:hover{transform:translateY(-6px); box-shadow:0 22px 40px -22px rgba(10,4,25,.5); border-color:rgba(255,255,255,.3); background:var(--card-hover);}
+  .skill-block-head{display:flex; align-items:center; gap:14px; margin-bottom:22px;}
+  .skill-icon{
+    width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,.1);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .skill-block h4{
+    font-size:16px; font-weight:700; color:#fff;
+  }
+  .skill-block .skill-desc{font-size:13.5px; color:var(--muted); margin-bottom:20px; line-height:1.6;}
+  .pill-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .pill{
+    padding:9px 16px; border-radius:10px; border:1px solid #E1D6FB; background:var(--lavender);
+    font-size:13.5px; font-weight:700; color:var(--primary-dark);
+    transition:border-color .25s, background .25s, transform .25s;
+  }
+  .pill:hover{border-color:var(--primary); background:#fff; transform:translateY(-2px);}
+
+  /* ================= PROJECTS ================= */
+  .project-card{
+    border:1px solid var(--line); border-radius:22px; overflow:hidden; margin-bottom:26px;
+    display:grid; grid-template-columns:1fr 1fr; background:var(--card);
+    transition:box-shadow .35s ease, border-color .35s ease, background .35s ease;
+  }
+  .project-card:hover{box-shadow:0 30px 60px -30px rgba(10,4,25,.55); border-color:rgba(255,255,255,.3); background:var(--card-hover);}
+  .project-card:nth-child(even){grid-template-columns:1fr 1fr;}
+  .project-card:nth-child(even) .p-visual{order:2;}
+  @media(max-width:860px){
+    .project-card, .project-card:nth-child(even){grid-template-columns:1fr;}
+    .project-card:nth-child(even) .p-visual{order:0;}
+  }
+  .p-visual{
+    background:linear-gradient(155deg, #F3F0FF, #EDE7FF);
+    display:flex; align-items:center; justify-content:center; padding:32px;
+    min-height:280px; position:relative; overflow:hidden;
+  }
+  .p-visual svg{width:100%; height:auto; max-width:340px;}
+  .p-body{padding:38px 40px;}
+  .p-num{font-family:var(--mono); font-size:13px; color:#FFFFFF; margin-bottom:10px; font-weight:500;}
+  .p-body h3{font-size:22px; margin-bottom:6px; line-height:1.25; color:#fff;}
+  .p-year{font-size:13px; color:var(--muted); margin-bottom:16px; display:block;}
+  .p-body p{color:var(--muted); font-size:15px; line-height:1.7; margin-bottom:20px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{font-size:12px; font-weight:600; padding:6px 12px; border-radius:100px; background:var(--lavender); color:var(--primary-dark);}
+  .project-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
+  .project-actions .btn{padding:10px 16px; border-radius:10px; font-size:13px;}
+  .project-actions .btn-solid{color:#fff;}
+  .project-actions .btn-outline{color:#fff;}
+
+  /* ================= TIMELINE (experience) ================= */
+  .timeline{position:relative; padding-left:34px;}
+  .timeline::before{content:''; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:44px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{
+    position:absolute; left:-34px; top:2px; width:14px; height:14px; border-radius:50%;
+    background:var(--primary); border:3px solid var(--lavender);
+  }
+  .tl-date{font-family:var(--mono); font-size:12.5px; color:#FFFFFF; margin-bottom:6px; display:block;}
+  .tl-item h3{font-size:17px; margin-bottom:6px;}
+  .tl-item p{font-size:14.5px; color:var(--muted); line-height:1.6; max-width:520px;}
+
+  /* ================= CERTIFICATIONS ================= */
+  .cert-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  @media(max-width:760px){.cert-grid{grid-template-columns:1fr;}}
+  .cert-card{
+    border:1px solid var(--line); border-radius:16px; padding:24px 26px; background:var(--card);
+    display:flex; gap:16px; align-items:flex-start;
+    transition:border-color .25s, transform .25s, background .25s;
+  }
+  .cert-card:hover{border-color:rgba(255,255,255,.3); background:var(--card-hover); transform:translateY(-3px);}
+  .cert-mark{width:38px; height:38px; border-radius:10px; background:var(--lavender); flex:none; display:flex; align-items:center; justify-content:center;}
+  .cert-card h4{font-size:15.5px; margin-bottom:5px; line-height:1.4; color:#fff;}
+  .cert-card span{font-size:13px; color:var(--muted);}
+
+  /* ================= ACHIEVEMENTS ================= */
+  .ach-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  @media(max-width:900px){.ach-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.ach-grid{grid-template-columns:1fr;}}
+  .ach-card{border:1px solid var(--line); border-radius:16px; padding:22px; background:var(--card); transition:background .25s, border-color .25s, transform .25s;}
+  .ach-card:hover{background:var(--card-hover); border-color:rgba(255,255,255,.3); transform:translateY(-3px);}
+  .ach-card h4{font-size:15px; margin-bottom:8px; color:#fff;}
+  .ach-card p{font-size:13.5px; color:var(--muted); line-height:1.6;}
+
+  /* ================= EDUCATION ================= */
+  .edu-item{
+    display:grid; grid-template-columns:140px 1fr; gap:24px; padding:26px 0; border-top:1px solid var(--line);
+  }
+
+  .edu-item .yr{font-family:var(--mono); font-size:13px; color:#FFFFFF; padding-top:2px;}
+  .edu-item h3{font-size:18px; margin-bottom:6px; color:#fff;}
+  .edu-item .school{font-size:14.5px; color:var(--muted); margin-bottom:8px;}
+  .edu-score{
+    display:inline-block; font-size:12.5px; font-weight:700; color:var(--primary-dark);
+    background:var(--lavender); padding:5px 12px; border-radius:100px;
+  }
+  @media(max-width:600px){.edu-item{grid-template-columns:1fr; gap:8px;}}
+
+  /* ================= FOCUS ================= */
+  .focus-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--line); border-radius:20px; overflow:hidden;}
+  @media(max-width:900px){.focus-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.focus-grid{grid-template-columns:1fr;}}
+  .focus-item{
+    padding:36px 26px; border-right:1px solid var(--line); position:relative;
+    transition:background .3s;
+  }
+  .focus-item:last-child{border-right:none;}
+  .focus-item:hover{background:var(--card-hover);}
+  .focus-item .fi-num{font-family:var(--mono); font-size:12px; color:#FFFFFF; margin-bottom:16px; display:block;}
+  .focus-item h3{font-size:16px; line-height:1.4; color:#fff;}
+  @media(max-width:900px){.focus-item:nth-child(2n){border-right:none;}}
+
+  /* ================= CONTACT ================= */
+  .contact-band{
+    background:var(--card); border-radius:28px; padding:72px 48px; text-align:center;
+    border:1px solid var(--line);
+  }
+  .contact-band h2{font-size:clamp(28px,3.6vw,42px); max-width:680px; margin:0 auto 16px; color:#fff;}
+  .contact-band p{color:var(--muted); max-width:480px; margin:0 auto 34px; font-size:16px; line-height:1.7;}
+  .contact-actions{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+
+  /* ================= FOOTER ================= */
+  footer{border-top:1px solid var(--line); padding:44px 0;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
+  .foot-brand h4{font-size:15px; margin-bottom:4px; color:#fff;}
+  .foot-brand span{font-size:13px; color:var(--muted);}
+  .foot-links{display:flex; gap:26px; font-size:13.5px; color:var(--muted); flex-wrap:wrap;}
+  .foot-links a:hover{color:var(--primary);}
+  .foot-copy{font-size:12.5px; color:var(--muted); margin-top:28px; text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#home" class="brand">
+      <span class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12h4l2-7 4 14 2-9 2 5h6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Mukesh Kumar S
+    </a>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+<a href="assets/Mukesh_Kumar_Resume.pdf" class="btn primary" target="_blank" rel="noopener">📄 View Resume</a>
+<a href="assets/Mukesh_Kumar_Resume.pdf" class="btn secondary" download>⬇ Download Resume</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact" class="nav-cta">Let's Connect</a>
+    <a href="assets/Mukesh_Kumar_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+</nav>
+    <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact" class="nav-cta">Let's Connect</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>BIOMEDICAL ENGINEER • MEDICAL TECHNOLOGY</div>
+      <h1>Engineering healthcare through technology.</h1>
+      <p class="lede">I am a passionate Biomedical Engineer focused on bridging engineering and healthcare through innovative medical technologies, intelligent biomedical systems, medical imaging, wearable health solutions, and AI-driven healthcare applications.</p>
+      <div class="kw-row">
+        <span class="kw">Medical Devices</span>
+        <span class="kw">Healthcare AI</span>
+        <span class="kw">Medical Imaging</span>
+        <span class="kw">Wearable Technology</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-solid">View My Projects</a>
+        <a href="Mukesh-Kumar-S-Resume.pdf" download class="btn btn-outline">Download Resume</a>
+      </div>
+    </div>
+
+    <div class="hero-visual hero-visual--nophoto">
+      <div class="hv-card c1"><span class="dot"></span>Medical Device R&amp;D</div>
+      <div class="hv-card c2"><span class="dot"></span>Healthcare AI</div>
+      <div class="hv-card c3"><span class="dot"></span>Embedded Systems</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dot"></span>About Me</div>
+        <h2 class="section-title" style="margin-bottom:22px;">Building at the intersection of engineering and care.</h2>
+        <div class="about-text">
+          <p>I am a Biomedical Engineer. My name is <strong>MUKESH KUMAR</strong>.</p>
+        </div>
+      </div>
+      <div class="stat-grid reveal">
+        <div class="stat-card"><div class="stat-num">8.03 / 10</div><div class="stat-label">CGPA</div></div>
+        <div class="stat-card"><div class="stat-num">2022–2026</div><div class="stat-label">Graduation</div></div>
+        <div class="stat-card"><div class="stat-num">4+</div><div class="stat-label">Projects</div></div>
+        <div class="stat-card"><div class="stat-num">Biomedical</div><div class="stat-label">Domain</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CORE EXPERTISE ================= -->
+<section style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Core Expertise</div>
+        <h2 class="section-title">Where clinical need meets engineering discipline.</h2>
+      </div>
+    </div>
+    <div class="expertise-grid">
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 6 4-14 2 8h6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Biomedical Instrumentation</h3>
+        <ul>
+          <li>Biomedical sensors</li>
+          <li>Physiological measurement</li>
+          <li>Medical equipment</li>
+          <li>Sensor calibration</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#6C3CE9" stroke-width="2"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Embedded Systems</h3>
+        <ul>
+          <li>Arduino</li>
+          <li>ESP32</li>
+          <li>Arduino firmware</li>
+          <li>Biomedical sensor integration</li>
+          <li>BLE</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#6C3CE9" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Biomedical Sensors</h3>
+        <ul>
+          <li>MAX30205</li>
+          <li>MAX30102</li>
+          <li>MEMS microphone</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="#6C3CE9" stroke-width="2"/><path d="M7 9h4M7 12h6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Healthcare AI &amp; Medical Imaging</h3>
+        <ul>
+          <li>Deep learning</li>
+          <li>Multilabel classification</li>
+          <li>Medical image analysis</li>
+          <li>Chest X-ray analysis</li>
+          <li>Healthcare AI</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 13h4l2-7 4 14 2-11 2 4h4" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Signal Processing</h3>
+        <ul>
+          <li>Biomedical signal processing</li>
+          <li>Signal Processing Onramp</li>
+        </ul>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" stroke="#6C3CE9" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Medical Device Development</h3>
+        <ul>
+          <li>Prototype development</li>
+          <li>Testing</li>
+          <li>Calibration</li>
+          <li>Technical documentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Technical Skills</div>
+        <h2 class="section-title">Languages and tools applied across the work.</h2>
+      </div>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-block reveal">
+        <div class="skill-block-head">
+          <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 9l-5 3 5 3M16 9l5 3-5 3M14 4l-4 16" stroke="#B399F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Programming Languages</h4>
+        </div>
+        <p class="skill-desc">Core languages used for embedded firmware, signal processing, and simulation work.</p>
+        <div class="pill-row">
+          <span class="pill">C</span>
+          <span class="pill">C++</span>
+          <span class="pill">MATLAB</span>
+        </div>
+      </div>
+      <div class="skill-block reveal">
+        <div class="skill-block-head">
+          <div class="skill-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="#B399F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Engineering Tools &amp; Software</h4>
+        </div>
+        <p class="skill-desc">Applied software for modeling, prototyping, and data-driven analysis.</p>
+        <div class="pill-row">
+          <span class="pill">MATLAB</span>
+          <span class="pill">Arduino IDE</span>
+          <span class="pill">MS Excel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" style="background:#1A0D3D;">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Featured Projects</div>
+        <h2 class="section-title">Selected work across healthcare AI, medical imaging, devices, and biomedical simulation.</h2>
+      </div>
+    </div>
+
+    <!-- Project 01 -->
+    <div class="project-card reveal">
+      <div class="p-visual">
+        <svg viewBox="0 0 320 200" width="100%" role="img" aria-label="AI X-ray modality validation pipeline">
+          <rect x="12" y="64" width="62" height="72" rx="8" fill="#fff" stroke="#C9B8FA" stroke-width="1.5"/>
+          <path d="M43 76c-15 10-18 23-18 35 0 12 7 20 18 20s18-8 18-20c0-12-3-25-18-35z" fill="#EDE7FF" stroke="#6C3CE9" stroke-width="1.4"/>
+          <path d="M43 82v42M31 91h24M29 103h28M32 115h22" stroke="#C9B8FA" stroke-width="1"/>
+          <text x="13" y="151" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Input X-ray</text>
+          <line x1="76" y1="100" x2="111" y2="100" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="111" y="73" width="64" height="54" rx="9" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <circle cx="143" cy="90" r="8" fill="#6C3CE9" opacity=".9"/>
+          <circle cx="132" cy="108" r="8" fill="#6C3CE9" opacity=".55"/>
+          <circle cx="154" cy="108" r="8" fill="#6C3CE9" opacity=".7"/>
+          <line x1="143" y1="90" x2="132" y2="108" stroke="#6C3CE9"/>
+          <line x1="143" y1="90" x2="154" y2="108" stroke="#6C3CE9"/>
+          <text x="117" y="145" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">V1 + Gate</text>
+          <line x1="177" y1="100" x2="212" y2="100" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="212" y="70" width="60" height="60" rx="9" fill="#fff" stroke="#C9B8FA"/>
+          <path d="M225 111c9-22 18-27 33-39M225 117c12-10 21-14 35-14" fill="none" stroke="#6C3CE9" stroke-width="1.5"/>
+          <text x="216" y="146" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">OOD Space</text>
+          <rect x="278" y="78" width="30" height="44" rx="7" fill="#EDE7FF" stroke="#6C3CE9"/>
+          <path d="M286 100l6 6 10-15" fill="none" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="276" y="138" font-family="IBM Plex Mono" font-size="9" fill="#6F6B78">Result</text>
+        </svg>
+      </div>
+      <div class="p-body">
+        <span class="p-num">PROJECT 01 · RESEARCH FLAGSHIP</span>
+        <h3>AI X-Ray Image Validator V2</h3>
+        <span class="p-year">2026</span>
+        <p>Research-stage X-ray modality validation using a frozen V1 classifier, visual modality sanity gate, 1280-dimensional feature-space out-of-distribution screening, and Grad-CAM explainability.</p>
+        <div class="tag-row">
+          <span class="tag">TensorFlow</span><span class="tag">EfficientNet-B0</span><span class="tag">Medical Imaging</span>
+          <span class="tag">OOD Detection</span><span class="tag">Grad-CAM</span><span class="tag">Streamlit</span><span class="tag">Python</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://ai-xray-image-validator-v2.streamlit.app/" target="_blank" rel="noopener" class="btn btn-solid">🚀 Live Demo</a>
+          <a href="https://github.com/mukeshkumarsaravanan05/AI-XRay-Image-Validator-V2" target="_blank" rel="noopener" class="btn btn-outline">💻 GitHub</a>
+        </div>
+        <p style="font-size:12px; margin-top:16px; margin-bottom:0; opacity:.9;"><strong>Validation:</strong> 100% observed accuracy on the specified 1,000-image external validation subset. Research-stage only; not a clinical diagnostic system.</p>
+      </div>
+    </div>
+
+    <!-- Project 02 -->
+    <div class="project-card reveal">
+      <div class="p-visual">
+        <svg viewBox="0 0 320 200" width="100%">
+          <rect x="10" y="70" width="50" height="60" rx="10" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <circle cx="35" cy="100" r="6" fill="#6C3CE9"/>
+          <text x="10" y="150" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Sensor Node</text>
+          <line x1="60" y1="100" x2="130" y2="100" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="130" y="80" width="46" height="40" rx="8" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <text x="128" y="132" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">ESP32</text>
+          <line x1="176" y1="100" x2="230" y2="100" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <path d="M225 90c8-6 20-6 28 0M225 100c10-8 24-8 34 0M225 110c12-10 28-10 40 0" fill="none" stroke="#6C3CE9" stroke-width="1.4"/>
+          <text x="222" y="132" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">BLE</text>
+          <rect x="270" y="75" width="40" height="50" rx="8" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <text x="256" y="142" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Dashboard</text>
+        </svg>
+      </div>
+      <div class="p-body">
+        <span class="p-num">PROJECT 02</span>
+        <h3>AI-Based Multi-Modal Neonatal Health Assessment System</h3>
+        <span class="p-year">2026</span>
+        <p>Engineered a proposed wearable neonatal monitoring system integrating baby cry/audio, body temperature, SpO2, and heart-rate acquisition.</p>
+        <div class="tag-row">
+          <span class="tag">ESP32</span><span class="tag">MAX30205</span><span class="tag">MAX30102</span>
+          <span class="tag">MEMS Microphone</span><span class="tag">BLE</span><span class="tag">Healthcare AI</span><span class="tag">Wearable Technology</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Project 03 -->
+    <div class="project-card reveal">
+      <div class="p-visual">
+        <svg viewBox="0 0 320 200" width="100%">
+          <rect x="14" y="55" width="70" height="80" rx="6" fill="#fff" stroke="#C9B8FA" stroke-width="1.5"/>
+          <line x1="24" y1="70" x2="74" y2="70" stroke="#DCD0F7"/>
+          <line x1="24" y1="85" x2="74" y2="85" stroke="#DCD0F7"/>
+          <line x1="24" y1="100" x2="60" y2="100" stroke="#DCD0F7"/>
+          <line x1="24" y1="115" x2="74" y2="115" stroke="#DCD0F7"/>
+          <text x="14" y="150" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Chest X-Ray</text>
+          <line x1="90" y1="95" x2="150" y2="95" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <circle cx="180" cy="70" r="10" fill="#EDE7FF" stroke="#6C3CE9"/>
+          <circle cx="160" cy="95" r="10" fill="#EDE7FF" stroke="#6C3CE9"/>
+          <circle cx="200" cy="100" r="10" fill="#EDE7FF" stroke="#6C3CE9"/>
+          <circle cx="180" cy="120" r="10" fill="#EDE7FF" stroke="#6C3CE9"/>
+          <line x1="180" y1="70" x2="160" y2="95" stroke="#C9B8FA"/>
+          <line x1="180" y1="70" x2="200" y2="100" stroke="#C9B8FA"/>
+          <line x1="160" y1="95" x2="180" y2="120" stroke="#C9B8FA"/>
+          <line x1="200" y1="100" x2="180" y2="120" stroke="#C9B8FA"/>
+          <text x="150" y="150" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">AI Model</text>
+          <line x1="212" y1="100" x2="255" y2="100" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="255" y="80" width="55" height="40" rx="8" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <text x="248" y="132" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Classification</text>
+        </svg>
+      </div>
+      <div class="p-body">
+        <span class="p-num">PROJECT 03</span>
+        <h3>Multilabel Classification of Lung Diseases Using Deep Learning</h3>
+        <span class="p-year">2026</span>
+        <p>Developed a deep-learning approach for multilabel classification of abnormalities from chest X-ray medical images, investigating pneumonia, tuberculosis, and COVID-related abnormalities.</p>
+        <div class="tag-row">
+          <span class="tag">Deep Learning</span><span class="tag">Medical Imaging</span><span class="tag">Chest X-Ray</span>
+          <span class="tag">Multilabel Classification</span><span class="tag">Healthcare AI</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 04 -->
+    <div class="project-card reveal">
+      <div class="p-visual">
+        <svg viewBox="0 0 320 200" width="100%">
+          <rect x="20" y="80" width="44" height="34" rx="6" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <text x="8" y="130" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">MAX30205</text>
+          <line x1="64" y1="97" x2="120" y2="97" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="120" y="70" width="60" height="55" rx="8" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <rect x="130" y="80" width="40" height="6" fill="#6C3CE9" opacity=".5"/>
+          <rect x="130" y="90" width="40" height="6" fill="#6C3CE9" opacity=".35"/>
+          <text x="122" y="142" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Arduino</text>
+          <line x1="180" y1="97" x2="235" y2="97" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="235" y="65" width="66" height="64" rx="8" fill="#fff" stroke="#C9B8FA" stroke-width="1.5"/>
+          <text x="245" y="102" font-family="IBM Plex Mono" font-size="15" fill="#3B1F6F" font-weight="700">36.6°</text>
+          <text x="236" y="146" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Display</text>
+        </svg>
+      </div>
+      <div class="p-body">
+        <span class="p-num">PROJECT 04</span>
+        <h3>Smart Biomedical Thermometer Using MAX30205</h3>
+        <span class="p-year">2026</span>
+        <p>Developed a sensor-based digital thermometer using MAX30205 and Arduino for human body-temperature measurement, including firmware-based acquisition, monitoring and calibration.</p>
+        <div class="tag-row">
+          <span class="tag">MAX30205</span><span class="tag">Arduino</span><span class="tag">Biomedical Sensor</span>
+          <span class="tag">Firmware</span><span class="tag">Calibration</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 05 -->
+    <div class="project-card reveal">
+      <div class="p-visual">
+        <svg viewBox="0 0 320 200" width="100%">
+          <ellipse cx="70" cy="95" rx="42" ry="46" fill="none" stroke="#6C3CE9" stroke-width="1.6"/>
+          <ellipse cx="70" cy="95" rx="24" ry="30" fill="none" stroke="#C9B8FA" stroke-width="1.2"/>
+          <text x="34" y="150" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">3D Knee Joint</text>
+          <line x1="115" y1="95" x2="165" y2="95" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="165" y="65" width="70" height="60" rx="8" fill="#EDE7FF" stroke="#C9B8FA"/>
+          <polyline points="172,110 185,90 198,100 211,75 224,95" fill="none" stroke="#6C3CE9" stroke-width="1.6"/>
+          <text x="168" y="140" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">MATLAB Sim</text>
+          <line x1="235" y1="95" x2="270" y2="95" stroke="#C9B8FA" stroke-dasharray="3 4"/>
+          <rect x="270" y="70" width="42" height="50" rx="8" fill="#fff" stroke="#C9B8FA" stroke-width="1.5"/>
+          <text x="256" y="140" font-family="IBM Plex Mono" font-size="10" fill="#6F6B78">Biomechanics</text>
+        </svg>
+      </div>
+      <div class="p-body">
+        <span class="p-num">PROJECT 05</span>
+        <h3>Simulation of 3D Knee Contact Model Using MATLAB</h3>
+        <span class="p-year">2025–2026</span>
+        <p>Developed a MATLAB-based 3D knee joint contact simulation for biomechanical analysis of knee loading and contact behavior.</p>
+        <div class="tag-row">
+          <span class="tag">MATLAB</span><span class="tag">Biomechanics</span><span class="tag">3D Simulation</span><span class="tag">Knee Joint Analysis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE / EXPOSURE ================= -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Industrial &amp; Hospital Exposure</div>
+        <h2 class="section-title">Time spent close to real clinical and industrial workflows.</h2>
+      </div>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">May 2025</span>
+        <h3>Guru Multispecialty Hospital, Madurai</h3>
+        <p>Biomedical equipment, medical instruments, and clinical workflow exposure.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">May 2025</span>
+        <h3>Dr. Rao Hospital, Madurai</h3>
+        <p>Medical instruments and biomedical equipment exposure.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-date">2025</span>
+        <h3>ITI, Madurai</h3>
+        <p>Industrial and technical exposure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATIONS ================= -->
+<section id="certifications" style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Certifications &amp; Training</div>
+        <h2 class="section-title">Continued learning alongside coursework.</h2>
+      </div>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <div class="cert-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Signal Processing Onramp</h4><span>MathWorks</span></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Advanced Critical Care Equipment Training</h4><span>KAV Biomedical Equipment Training and Education</span></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Advanced-Level Calibration and Handling Training on Critical Care Equipment</h4><span>KAV Biomedical Equipment Training and Education</span></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Integration of Clinical Knowledge and Medical Coding in Healthcare System</h4><span>Theeram Healthcare, Madurai</span></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#6C3CE9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Microbial Biotechnology</h4><span>3-credit NPTEL Course, SWAYAM · Jan–Apr 2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACHIEVEMENTS ================= -->
+<section>
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Achievements</div>
+        <h2 class="section-title">Recognition and participation.</h2>
+      </div>
+    </div>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <h4>Science Expo</h4>
+        <p>Represented the Biomedical Engineering Department at Science Expo, E.G.S. Pillay Engineering College, August 2024.</p>
+      </div>
+      <div class="ach-card reveal">
+        <h4>Science Expo 23</h4>
+        <p>Recognized for active participation.</p>
+      </div>
+      <div class="ach-card reveal">
+        <h4>Technical Sessions</h4>
+        <p>Participated in technical sessions on Biomedical Instrument Design and Generative AI.</p>
+      </div>
+      <div class="ach-card reveal">
+        <h4>Inter-College Quiz</h4>
+        <p>Participated in a technical quiz competition organized by Shankar IAS Academy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Education</div>
+        <h2 class="section-title">Academic background.</h2>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="edu-item">
+        <span class="yr">2022–2026</span>
+        <div>
+          <h3>B.E. Biomedical Engineering</h3>
+          <div class="school">E.G.S. Pillay Engineering College, Nagapattinam</div>
+          <span class="edu-score">CGPA: 8.03 / 10</span>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="yr">2021–2022</span>
+        <div>
+          <h3>Higher Secondary — Bio-Maths</h3>
+          <div class="school">Laurel Higher Secondary School</div>
+          <span class="edu-score">75%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAREER FOCUS ================= -->
+<section>
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Career Focus</div>
+        <h2 class="section-title">Where biomedical engineering meets intelligent technology.</h2>
+      </div>
+    </div>
+    <div class="focus-grid reveal">
+      <div class="focus-item"><span class="fi-num">01</span><h3>Medical Device R&amp;D</h3></div>
+      <div class="focus-item"><span class="fi-num">02</span><h3>Wearable Health Technology</h3></div>
+      <div class="focus-item"><span class="fi-num">03</span><h3>Healthcare AI &amp; Medical Imaging</h3></div>
+      <div class="focus-item"><span class="fi-num">04</span><h3>Biomedical Embedded Systems</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-band reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="dot"></span>Contact</div>
+      <h2>Let's build better healthcare technology.</h2>
+      <p>Interested in biomedical technology, medical devices, healthcare AI or collaborative opportunities? Let's connect.</p>
+      <div class="contact-actions">
+        <a href="mailto:mukeshkumar.saravanan05@gmail.com" class="btn btn-solid">Email Me</a>
+        <a href="https://linkedin.com/in/mukeshkumar-saravanan05" target="_blank" rel="noopener" class="btn btn-outline">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">
+        <h4>Mukesh Kumar S</h4>
+        <span>Biomedical Engineer | Medical Technology</span>
+      </div>
+      <div class="foot-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="https://linkedin.com/in/mukeshkumar-saravanan05" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:mukeshkumar.saravanan05@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="foot-copy">© 2026 Mukesh Kumar S. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger = document.getElementById('burgerBtn');
+  const panel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    panel.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
